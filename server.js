@@ -1,12 +1,16 @@
 const express = require('express');
 const hbs = require('hbs');
+var path = require('path');
 const fs = require('fs');
 
 const port = process.env.PORT || 3000;
 var app = express();
 
+
 hbs.registerPartials(__dirname + '/views/partials')
 app.set('view engine', 'hbs');
+
+app.use('/img',express.static(__dirname+'/public/img'));
 
 app.use((req, res, next) => {
   var now = new Date().toString();
@@ -24,6 +28,8 @@ app.use((req, res, next) => {
 // app.use((req, res, next) => {
 //   res.render('maintenance.hbs');
 // });
+
+app.use(express.static('/public'))
 
 app.use(express.static(__dirname + '/public'));
 
